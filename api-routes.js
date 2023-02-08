@@ -1,28 +1,29 @@
-//
+//api-routes.js
+
+//import express routess
 const express = require ("express");
 const router = express.Router();
 
+//set default api response
 router.get('/', (req, res) => {
  res.json({  status : "API iTS Working", message :"warning"
 });
 
 })
-router.post('/', (req, res) => {
 
-    res.send('Request Create Masuk');
-})
+//import contacts controller
+const contactController = require("./contactController");
 
-router.put('/', (req, res) => {
+//contcat routes 
+router.route('/contacts')
+.get(contactController.index)
+.post(contactController.new);
 
-    res.send('Request Update Masuk');
-})
-
-
-router.delete('/', (req, res) => {
-
-    res.send('Request Delete Masuk');
-})
-
+router.route("contacts/:contact_id")
+.get(contactController.view)
+.patch(contactController.update)
+.put(contactController.update)
+.delete(contactController.delete)
 
 
 module.exports = router;
