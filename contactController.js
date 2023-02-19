@@ -23,16 +23,15 @@ exports.new = function (req, res){
   contact.gender = req.body.gender;
   contact.email =  req.body.email;
   contact.phone = req.body.phone;
-contact.save (function(err){
-  if (err){
-    res.json({
-      status: " error",
-      message: err
-    })
-  }
+contact.save ().then(data =>{
   res.json({
-    message:"new contact Created!",
-    data : contact
+    status : "Succes",
+    message :"New Contact Created",
+    contact:data,
+  });
+}).catch(err => {
+  res.status(500).send ({
+    message : err.message || "Internal Server Error"
   })
 })
 }
